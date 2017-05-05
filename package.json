@@ -1,0 +1,30 @@
+{
+  "name": "zonybir_server",
+  "version": "1.0.0",
+  "description": "build server with node express ...",
+  "main": "app.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zonybir/zonybir_server.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "socketIo"
+  ],
+  "author": "zonybor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zonybir/zonybir_server/issues"
+  },
+  "homepage": "https://github.com/zonybir/zonybir_server#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2"
+  }
+}
