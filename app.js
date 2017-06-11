@@ -4,8 +4,14 @@ const express = require('express'),
       cookieParser = require('cookie-parser'),
       session = require('express-session'),
       bodyParser = require('body-parser'),
-
+      fs = require('fs'),
       router = require('./routers');
+
+global.imageArray=[];
+
+fs.readdir('../sais/254',(err,file)=>{
+    global.imageArray=file;
+})
 
 
 app.set('port',process.env.PORT || 2113);
