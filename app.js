@@ -5,12 +5,17 @@ const express = require('express'),
       session = require('express-session'),
       bodyParser = require('body-parser'),
       fs = require('fs'),
-      router = require('./routers');
+      router = require('./routers'),
+      db = require('./db');
 
 global.imageArray=[];
-
-fs.readdir('../sais/254',(err,file)=>{
-    global.imageArray=file;
+global.maxpage=0;
+db.query('select * from pages',(err,res)=>{
+    if(!err){
+        global.imageArray=res;
+        global.maxpage=res.length;
+        console.log(res);
+    }
 })
 
 
