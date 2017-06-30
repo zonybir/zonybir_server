@@ -18,10 +18,19 @@ router.get('/info_list',(req,res)=>{
 })
 
 router.get('/list',(req,res)=>{
-    var page=req.query.page*10,
-        max_page
+    var reqPage=req.query.page,
+        page=reqPage*10,
+        max_page=0;
     if(page>=global.maxpage) page=global.maxpage-10;
-    res.json(global.imageArray.slice(page,page+10));
+    res.json({
+        code:200,
+        mes:'ok',
+        data:{
+            count:global.maxpage,
+            page:reqPage,
+            list:global.imageArray.slice(page,page+10)
+        }
+    });
 })
 
 router.get('/image_page',(req,res)=>{
