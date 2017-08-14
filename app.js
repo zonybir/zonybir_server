@@ -4,10 +4,26 @@ const express = require('express'),
       cookieParser = require('cookie-parser'),
       session = require('express-session'),
       bodyParser = require('body-parser'),
+<<<<<<< HEAD
 
       router = require('./routers'),
       fs = require('fs');
 global.fileAraay=[];
+=======
+      fs = require('fs'),
+      router = require('./routers'),
+      db = require('./db');
+
+global.imageArray=[];
+global.maxpage=0;
+db.query('select * from pages',(err,res)=>{
+    if(!err){
+        global.imageArray=res;
+        global.maxpage=res.length;
+        console.log(res);
+    }
+})
+>>>>>>> 636f9976fb8eb6a697c932d121a3117312783890
 
 fs.readdir('../zonybir_client/test/sais',(err,file)=>{
     global.fileAraay=file;
