@@ -5,10 +5,15 @@ const express = require('express'),
       session = require('express-session'),
       bodyParser = require('body-parser'),
 
-      router = require('./routers');
+      router = require('./routers'),
+      fs = require('fs');
+global.fileAraay=[];
 
+fs.readdir('../zonybir_client/test/sais',(err,file)=>{
+    global.fileAraay=file;
+})
 
-app.set('port',process.env.PORT || 2113);
+app.set('port',process.env.PORT || 7499);
 app.use(express.static(__dirname+'/public'));
 
 app.use(bodyParser.urlencoded({extended:false}));
