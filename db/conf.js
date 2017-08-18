@@ -1,7 +1,7 @@
 module.exports={
     host       : 'localhost',
     user       : 'root',
-    password   : 'bunengkan',
-    database   : 'image',
+    password   : '123456',
+    database   : 'zonybir',
     prefix     : 'enlink_'
 }

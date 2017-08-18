@@ -9,20 +9,6 @@ const express = require('express'),
       router = require('./routers'),
       db = require('./db');
 
-global.imageArray=[];
-global.maxpage=0;
-db.query('select * from pages',(err,res)=>{
-    if(!err){
-        global.imageArray=res;
-        global.maxpage=res.length;
-        console.log(res);
-    }
-})
-
-fs.readdir('../zonybir_client/test/sais',(err,file)=>{
-    global.fileAraay=file;
-})
-
 app.set('port',process.env.PORT || 7499);
 app.use(express.static(__dirname+'/public'));
 

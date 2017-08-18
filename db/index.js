@@ -12,6 +12,7 @@ exports.query = function (sql,callback){
 	pool.getConnection(function(err,connection){
 		if (err){
 			console.log('获取数据库连接错误！');
+			console.log(err);
 			callback(err,"获取数据库连接错误！");
 		}else {
 			console.log(sql);
