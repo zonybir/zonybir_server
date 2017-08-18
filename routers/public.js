@@ -7,7 +7,7 @@ const express = require('express'),
 router.use((req,res,next)=>{
     next();
 })
-app.post('/login',multipartMiddleware,(req,res)=>{
+router.post('/login',multipartMiddleware,(req,res)=>{
     var data=req.body;
     if(data.user&&data.password){
         let sql=`select * from user where name="${data.user}" and password=${data.password}`;
