@@ -50,13 +50,17 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
             method: 'GET'
         }
         var httsRq=https.request(option,(respon)=>{
+            let wechatResData='';
             respon.on('data',(d)=>{
-                console.log(d);
+                wechatResData+=d;
             })
-            res.json({
-                code:200,
-                data:respon
+            respon.on('end',()=>{
+                res.json({
+                    code:200,
+                    data:wechatResData
+                })
             })
+            
         })
         httsRq.on('error',(e)=>{
             console.log(e);
