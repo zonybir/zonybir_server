@@ -40,7 +40,7 @@ router.post('/login',multipartMiddleware,(req,res)=>{
     }
 })
 
-router.post('wechat_login',multipartMiddleware,(req,res)=>{
+router.post('/wechat_login',multipartMiddleware,(req,res)=>{
     var wechat_code=req.body.code;
     if(wechat_code){
         let option={
