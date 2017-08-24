@@ -6,6 +6,13 @@ const multipart = require('connect-multiparty'),
       multipartMiddleware = multipart();
       */
 const router=(app,express)=>{
+    global.sentInfo=(code,msg,res)=>{
+        res.json({
+            code:code,
+            msg:msg,
+            data:{}
+        })
+    }
     app.use('*',(req,res,next)=>{
         next();
     });

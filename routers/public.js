@@ -2,6 +2,7 @@ const express = require('express'),
       router  = express.Router(),
       multipart = require('connect-multiparty'),
       db = require('../db'),
+      https=require('https'),
       multipartMiddleware = multipart();
 
 router.use((req,res,next)=>{
@@ -36,6 +37,20 @@ router.post('/login',multipartMiddleware,(req,res)=>{
             code:402,
             message:'请填写用户名或密码'
         })
+    }
+})
+
+router.post('wechat_login',multipartMiddleware,(req,res)=>{
+    var wechat_code=req.body.code;
+    if(wechat_code){
+        https.request(`https://api.weixin.qq.com/sns/jscode2session?appid=wx68ca906a75e5c74c&secret=13a95d9ecdbdd50377b71f8b464eafcc&js_code=${wechat_code}&grant_type=authorization_code`,(respon)=>{
+            res.json({
+                code:200,
+                data:respon
+            })
+        })
+    }else{
+        global.sentInfo(402,'非法登陆');
     }
 })
 
