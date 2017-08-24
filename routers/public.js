@@ -49,12 +49,19 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
             path: `/sns/jscode2session?appid=wx68ca906a75e5c74c&secret=13a95d9ecdbdd50377b71f8b464eafcc&js_code=${wechat_code}&grant_type=authorization_code`,
             method: 'GET'
         }
-        https.request(option,(respon)=>{
+        var httsRq=https.request(option,(respon)=>{
+            respon.on('data',(d)=>{
+                console.log(d);
+            })
             res.json({
                 code:200,
                 data:respon
             })
         })
+        httsRq.on('error',(e)=>{
+            console.log(e);
+        })
+        httsRq.end();
     }else{
         global.sentInfo(402,'非法登陆');
     }
