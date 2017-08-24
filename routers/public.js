@@ -43,7 +43,13 @@ router.post('/login',multipartMiddleware,(req,res)=>{
 router.post('wechat_login',multipartMiddleware,(req,res)=>{
     var wechat_code=req.body.code;
     if(wechat_code){
-        https.request(`https://api.weixin.qq.com/sns/jscode2session?appid=wx68ca906a75e5c74c&secret=13a95d9ecdbdd50377b71f8b464eafcc&js_code=${wechat_code}&grant_type=authorization_code`,(respon)=>{
+        let option={
+            hostname: 'api.weixin.qq.com',
+            port: 443,
+            path: `/sns/jscode2session?appid=wx68ca906a75e5c74c&secret=13a95d9ecdbdd50377b71f8b464eafcc&js_code=${wechat_code}&grant_type=authorization_code`,
+            method: 'GET'
+        }
+        https.request(option,(respon)=>{
             res.json({
                 code:200,
                 data:respon
