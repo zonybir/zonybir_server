@@ -85,7 +85,11 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
                                     res.json({
                                         code:200,
                                         message:'注册成功',
-                                        data:ressql
+                                        data:{
+                                            name:null,
+                                            last_login:null,
+                                            code:sessionId
+                                        }
                                     })
                                 }else global.sentInfo(500,'注册失败',res);
                             })
