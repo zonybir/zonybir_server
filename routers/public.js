@@ -63,7 +63,7 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
                     db.query(sql,(err,ressql)=>{
                         if(!err&&ressql.length>0){
                             let user_id=ressql[0].id;
-                            wechatResData.user_id=user_id;
+                            wechatResData.id=user_id;
                             global.userSession[sessionId]=wechatResData;
                             res.json({
                                 code:200,
@@ -80,7 +80,7 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
                             db.query(sql,(err,ressql)=>{
                                 if(!err){
                                     let user_id=ressql.insertId;
-                                    wechatResData.user_id=user_id;
+                                    wechatResData.id=user_id;
                                     global.userSession[sessionId]=wechatResData;
                                     res.json({
                                         code:200,
