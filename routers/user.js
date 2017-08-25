@@ -6,16 +6,18 @@ const express = require('express'),
 
 router.use('*',multipartMiddleware,(req,res,next)=>{
     var user=req.session.user;
-    let params=req.body;
-    console.log(params);
-    console.log(req.query);
+    let wechatId=req.body.wechat||req.query.wechat;
+
     if(user&&user.id){
         next();
+    }else if(wechatId&&global.userSession[wechatId]){
+        req.session.user=global.userSession[wechatId];
+        next();
     }else res.json({
-        code:403,
-        message:'请登录',
-        data:[]
-    })
+                code:403,
+                message:'请登录',
+                data:[]
+            })
     
 })
 
