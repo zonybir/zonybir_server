@@ -4,8 +4,11 @@ const express = require('express'),
       multipart = require('connect-multiparty'),
       multipartMiddleware = multipart();
 
-router.use((req,res,next)=>{
+router.use('*',multipartMiddleware,(req,res,next)=>{
     var user=req.session.user;
+    let params=req.body;
+    console.log(params);
+    console.log(req.query);
     if(user&&user.id){
         next();
     }else res.json({
