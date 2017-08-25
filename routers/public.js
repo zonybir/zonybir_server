@@ -76,7 +76,7 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
                             })
                             db.query(`update user set last_login=CURRENT_TIMESTAMP where id=${user_id}`,()=>{});
                         }else{
-                            sql=`insert into user (join_date,wechat_id) value (CURRENT_TIMESTAMP,${wechatResData.openid})`;
+                            sql=`insert into user (join_date,wechat_id) value (CURRENT_TIMESTAMP,"${wechatResData.openid}")`;
                             db.query(sql,(err,ressql)=>{
                                 if(!err){
                                     res.json({
