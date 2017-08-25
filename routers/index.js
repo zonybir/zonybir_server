@@ -13,6 +13,7 @@ const router=(app,express)=>{
             data:{}
         })
     }
+    global.userSession={};
     app.use('*',(req,res,next)=>{
         next();
     });

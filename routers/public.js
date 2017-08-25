@@ -55,10 +55,47 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
                 wechatResData+=d;
             })
             respon.on('end',()=>{
-                res.json({
-                    code:200,
-                    data:wechatResData
-                })
+                wechatResData=JSON.parse(wechatResData);
+                if(wechatResData.session_key){
+                    let sql=`select * from user where wechat_id="${wechatResData.openid}"`;
+                    let sessionId=Math.floor(Math.random()*10000)+''+(new Date()).getTime()+'';
+                    
+                    db.query(sql,(err,ressql)=>{
+                        if(!err&&ressql.length>0){
+                            let user_id=ressql[0].id;
+                            wechatResData.user_id=user_id;
+                            global.userSession[sessionId]=wechatResData;
+                            res.json({
+                                code:200,
+                                message:'登录成功',
+                                data:{
+                                    name:ressql.name,
+                                    last_login:ressql.last_login,
+                                    code:sessionId
+                                }
+                            })
+                            db.query(`update user set last_login=CURRENT_TIMESTAMP where id=${user_id}`,()=>{});
+                        }else{
+                            sql=`insert into user (join_date,wechat_id) value (CURRENT_TIMESTAMP,${wechatResData.openid})`;
+                            db.query(sql,(err,ressql)=>{
+                                if(!err){
+                                    res.json({
+                                        code:200,
+                                        message:'注册成功',
+                                        data:ressql
+                                    })
+                                }else global.sentInfo(500,'注册失败',res);
+                            })
+                            
+                        }
+                    })
+                }else{
+                    res.json({
+                        code:502,
+                        data:wechatResData,
+                        message:'获取用户信息失败'
+                    })
+                }
             })
             
         })
@@ -67,7 +104,7 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
         })
         httsRq.end();
     }else{
-        global.sentInfo(402,'非法登陆');
+        global.sentInfo(402,'非法登陆',res);
     }
 })
 
