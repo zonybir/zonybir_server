@@ -79,6 +79,9 @@ router.post('/wechat_login',multipartMiddleware,(req,res)=>{
                             sql=`insert into user (join_date,wechat_id) value (CURRENT_TIMESTAMP,"${wechatResData.openid}")`;
                             db.query(sql,(err,ressql)=>{
                                 if(!err){
+                                    let user_id=ressql.insertId;
+                                    wechatResData.user_id=user_id;
+                                    global.userSession[sessionId]=wechatResData;
                                     res.json({
                                         code:200,
                                         message:'注册成功',
