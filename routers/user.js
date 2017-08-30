@@ -109,4 +109,37 @@ router.post('/add_class',multipartMiddleware,(req,res)=>{
         else res.json({code:402,message:err})
     })
 })
+
+router.post('/add_type',multipartMiddleware,(req,res)=>{
+    let typeData=req.body;
+    if(!typeData.vlaue){
+        res.json({
+            code:402,
+            message:'请填写分类名称'
+        })
+        return;
+    }else if(!typeData.id){
+        res.json({
+            code:500,
+            message:'非法请求'
+        })
+        return;
+    }
+    let typeValue=typeData.vlaue.split(',');
+    db.query(`select id from class where id=${typeData.id} and user_id=${req.session.user.id}`,(err,row)=>{
+        if(!err&&row.length>0){
+            let sql='insert into type (class_id,name) value';
+            typeValue.map((v,k)=>{
+                sql+=`(${typeData.id},"${v}"),`;
+            })
+            sql=sql.replace(/\,$/,'');
+            db.query(sql,(err,row)=>{
+                if(!err) res.json({code:200,message:'添加成功'});
+                else res.json({code:402,message:'err two'})
+            })
+        }else res.json({code:402,message:'err'})
+    })
+    
+})
+
 module.exports = router;
