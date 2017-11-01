@@ -36,11 +36,11 @@ router.get('/type_list',(req,res)=>{
 })
 
 router.post('/set_item',multipartMiddleware,(req,res)=>{
-    let data=JSON.parse(req.body.data);
+    let data=JSON.parse(req.body.data),user_id=req.session.user.id;
     console.log(data);
     let sql='insert into details (type_id,user_id,name,price) value ';
     data.map((v,k)=>{
-        sql+='('+v.type_id+','+'1,"'+v.detail+'",'+v.amount+'),';
+        sql+='('+v.type_id+','+user_id+',"'+v.detail+'",'+v.amount+'),';
     })
     sql=sql.replace(/\,$/,'');
     db.query(sql,(err,ressql)=>{
