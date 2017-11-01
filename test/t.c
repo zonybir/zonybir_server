@@ -15,7 +15,7 @@ int main()
 	struct sockaddr_in servaddr;
 	char dns[32];
 	char url[128];
-	char *IP = "104.27.167.199";
+	char *IP = "115.28.222.150";
 	char *buf = "GET / HTTP/1.1\r\nHost:www.v4qd.com\r\nConnection: keep-alive\r\nCache-Control: max-age=0\r\n\
 Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n\
 User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36\r\n\r\n";
