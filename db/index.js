@@ -8,7 +8,8 @@ var pool = mysql.createPool({
 	database : dataconf.database,
 	prefix : dataconf.prefix
 });
-exports.query = function (sql,callback){
+exports.query = function (sql,data,callback){
+	if(typeof data == 'function')  callback=data;
 	pool.getConnection(function(err,connection){
 		if (err){
 			console.log('获取数据库连接错误！');
@@ -16,7 +17,7 @@ exports.query = function (sql,callback){
 			callback(err,"获取数据库连接错误！");
 		}else {
 			console.log(sql);
-			connection.query(sql,function (err,result){
+			connection.query(sql,data,function (err,result){
 				if (err){
 					console.log(err);
 					console.log("执行sql语句错误！");
