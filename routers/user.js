@@ -75,7 +75,7 @@ router.get('/list',(req,res)=>{
         }
     }
     let sql=`select class.name as title,group_concat(type.name,'-',details.name,'-',details.price) as children from class,type,details 
-                where details.user_id=class.user_id=${user_id} and ${limitSql} and details.type_id=type.id and type.class_id=class.id
+                where details.user_id=class.user_id and class.user_id=${user_id} and ${limitSql} and details.type_id=type.id and type.class_id=class.id
                     group by title order by class.id
                 `;
     db.query(sql,(err,ressql)=>{
